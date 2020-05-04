@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Nunito:wght@300&display=swap");
+
+* {
+  font-family: "Nunito", sans-serif;
+}
+
+body {
+  background-color: rgb(70, 69, 73);
+}
+
+h1 {
+  font-family: "Indie Flower", cursive;
+  display: block;
+  text-align: center;
+  color: white;
+  font-size: 3em;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  box-sizing: border-box;
+  justify-content: center;
+  padding: 20px 10px;
+}
+
+#game-canvas {
+  background-color: rgb(255, 255, 255);
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+}
+
+button {
+  border: none;
+  color: white;
+  padding: 10px;
+  background-color: rgb(255, 94, 0);
+  font-size: 1.3em;
+  box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.4);
+}
