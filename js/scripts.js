@@ -7,6 +7,9 @@ Game of life: Reglas
 La cuarta regla se toma como caso default, solo programo las otras 3.
 */
 
+//Variables globales
+let genCounter = 0;
+
 // Canvas
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
@@ -31,6 +34,8 @@ function buildGrid() {
 let pause = false;
 
 function update() {
+  genCounter++;
+  document.getElementById("counter").innerText = genCounter;
   grid = nextGen(grid);
   render(grid);
   if (!pause) {
@@ -96,18 +101,35 @@ function render(grid) {
 
 /* Controles:  */
 
+// Start
 document.getElementById("btn-start").addEventListener("click", (e) => {
   e.preventDefault();
   pause = false;
   requestAnimationFrame(update);
   document.getElementById("btn-start").setAttribute("style", "display: none");
   document.getElementById("btn-pause").setAttribute("style", "display: inline");
+  document.getElementById("btn-reset").setAttribute("style", "display: inline");
 });
 
+// Pause
 document.getElementById("btn-pause").addEventListener("click", (e) => {
   e.preventDefault();
   pause = true;
   document.getElementById("btn-pause").setAttribute("style", "display: none");
   document.getElementById("btn-start").setAttribute("style", "display: inline");
   document.getElementById("btn-start").innerText = "Continuar";
+});
+
+// Reset
+document.getElementById("btn-reset").addEventListener("click", (e) => {
+  e.preventDefault();
+  pause = true;
+  grid = buildGrid();
+  render(grid);
+  genCounter = -1;
+  document.getElementById("btn-pause").setAttribute("style", "display: none");
+  document.getElementById("btn-start").setAttribute("style", "display: inline");
+  document.getElementById("btn-reset").setAttribute("style", "display: none");
+  document.getElementById("btn-start").innerText = "Comenzar";
+  document.getElementById("counter").innerText = 0;
 });
