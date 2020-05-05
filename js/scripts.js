@@ -15,7 +15,7 @@ let pause = false; // Frena el ciclo de iteraciones.
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
-let resolution = 4;
+let resolution = 5;
 canvas.width = 600;
 canvas.height = 600;
 

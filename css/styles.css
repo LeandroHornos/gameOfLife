@@ -34,7 +34,7 @@ p {
   font-size: 0.9em;
 }
 
-.container {
+.app-container {
   width: 100%;
   display: flex;
   flex-direction: column;
