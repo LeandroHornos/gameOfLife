@@ -8,15 +8,104 @@
   </head>
   <body>
     <h1>Lean's Game of Life</h1>
+    <div>
+      <p>
+        El juego de la vida es un autómata celular diseñado por el matemático
+        británico John Horton Conway en 1970. Desde su publicación, ha atraído
+        mucho interés debido a la gran variabilidad de la evolución de los
+        patrones. Se considera que la vida es un buen ejemplo de emergencia y
+        autoorganización. Es interesante para los científicos, matemáticos,
+        economistas y otros observar cómo patrones complejos pueden provenir de
+        la implementación de reglas muy sencillas. La vida tiene una variedad de
+        patrones reconocidos que provienen de determinadas posiciones iniciales.
+        Poco después de la publicación, se descubrieron el pentaminó R, el
+        planeador o caminador (en inglés, glider, conjunto de células que se
+        desplazan) y el explosionador (células que parecen formar la onda
+        expansiva de una explosión), lo que atrajo un mayor interés hacia el
+        juego. Contribuyó a su popularidad el hecho de que se publicó justo
+        cuando se estaba lanzando al mercado una nueva generación de
+        miniordenadores baratos, lo que significaba que se podía jugar durante
+        horas en máquinas que, por otro lado, no se utilizarían por la noche.
+        Para muchos aficionados, el juego de la vida solo era un desafío de
+        programación y una manera divertida de usar ciclos de la CPU. Para
+        otros, sin embargo, el juego adquirió más connotaciones filosóficas.
+        Desarrolló un seguimiento casi fanático a lo largo de los años setenta
+        hasta mediados de los ochenta.
+      </p>
+    </div>
+    <div id="rules-panel">
+      <h3>Las reglas del juego son</h3>
+      <ul>
+        <li>
+          Cualquier célula viva con menos de
+          <span
+            ><select name="rule-1" id="rule-1">
+              <option value="1">1</option>
+              <option value="2" selected="selected">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+            </select></span
+          >
+          vecinos vivos muere, como por subpoblación.
+        </li>
+        <li>
+          Cualquier célula viva con más de
+          <span
+            ><select name="rule-2" id="rule-2">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3" selected="selected">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+            </select></span
+          >
+          vecinos vivos muere, como por superpoblación.
+        </li>
+        <li>
+          Cualquier célula muerta con exactamente
+          <span
+            ><select name="rule-3" id="rule-3">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3" selected="selected">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+            </select></span
+          >
+          vecinos vivos revive, como por reproducción.
+        </li>
+      </ul>
+      <button id="btn-reset-rules">Reestablecer</button>
+      <p>
+        Las reglas que se muestran son las estándar (2-3-3). Las mismas pueden
+        ser variadas en cualquier momento del experimento! Probá cambiarlas al
+        principio o cuando el sistema alcanzó un estado estacionario para ver
+        que ocurre.
+      </p>
+    </div>
     <div class="container">
-      <button id="btn-start">Comenzar</button>
-      <button id="btn-pause" style="display: none;">Pausar</button>
-      <button id="btn-reset" style="display: none;">Reset</button>
+      <div>
+        <button class="btn-orange" id="btn-start">Comenzar</button>
+        <button class="btn-orange" id="btn-pause" style="display: none;">
+          Pausar
+        </button>
+        <button class="btn-orange" id="btn-reset" style="display: none;">
+          Reset
+        </button>
+      </div>
     </div>
     <div class="container">
       <p>Generación: <span id="counter">0</span></p>
-    </div>
-    <div class="container">
       <canvas id="game-canvas"></canvas>
     </div>
     <script src="js/scripts.js"></script>

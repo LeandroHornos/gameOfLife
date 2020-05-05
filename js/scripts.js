@@ -8,7 +8,8 @@ La cuarta regla se toma como caso default, solo programo las otras 3.
 */
 
 //Variables globales
-let genCounter = 0;
+let genCounter = 0; // cuenta las generaciones transcurridas
+let pause = false; // Frena el ciclo de iteraciones.
 
 // Canvas
 const canvas = document.querySelector("canvas");
@@ -18,9 +19,9 @@ let resolution = 5;
 canvas.width = 600;
 canvas.height = 600;
 
-// Grid (CUADRADO)
+// Grid
 const COLS = canvas.width / resolution;
-const ROWS = COLS;
+const ROWS = COLS; // cuadrado
 let grid = buildGrid();
 render(grid);
 
@@ -31,7 +32,6 @@ function buildGrid() {
       new Array(ROWS).fill(null).map(() => Math.floor(Math.random() * 2))
     );
 }
-let pause = false;
 
 function update() {
   genCounter++;
@@ -44,6 +44,10 @@ function update() {
 }
 
 function nextGen(grid) {
+  // REGLAS DEL JUEGO: Se pueden cambiar durante la partida!
+  let rule1 = parseInt(document.getElementById("rule-1").value);
+  let rule2 = parseInt(document.getElementById("rule-2").value);
+  let rule3 = parseInt(document.getElementById("rule-3").value);
   // Creo una copia del estado actual
   const nextGen = grid.map((arr) => [...arr]);
   // itero en todas las celdas
@@ -69,12 +73,11 @@ function nextGen(grid) {
           numNeighbours += currentNeighbour;
         }
       }
-      // REGLAS DEL JUEGO:
-      if (cell === 1 && numNeighbours < 2) {
+      if (cell === 1 && numNeighbours < rule1) {
         nextGen[col][row] = 0;
-      } else if (cell === 1 && numNeighbours > 3) {
+      } else if (cell === 1 && numNeighbours > rule2) {
         nextGen[col][row] = 0;
-      } else if (cell === 0 && numNeighbours === 3) {
+      } else if (cell === 0 && numNeighbours === rule3) {
         nextGen[col][row] = 1;
       }
     }
@@ -132,4 +135,12 @@ document.getElementById("btn-reset").addEventListener("click", (e) => {
   document.getElementById("btn-reset").setAttribute("style", "display: none");
   document.getElementById("btn-start").innerText = "Comenzar";
   document.getElementById("counter").innerText = 0;
+});
+
+// Reset Rules:
+document.getElementById("btn-reset-rules").addEventListener("click", (e) => {
+  e.preventDefault();
+  document.getElementById("rule-1")[1].selected = "selected";
+  document.getElementById("rule-2")[2].selected = "selected";
+  document.getElementById("rule-3")[2].selected = "selected";
 });
