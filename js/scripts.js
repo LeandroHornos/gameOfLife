@@ -15,9 +15,9 @@ let resolution = 5;
 canvas.width = 600;
 canvas.height = 600;
 
-// Grid
+// Grid (CUADRADO)
 const COLS = canvas.width / resolution;
-const ROWS = canvas.width / resolution;
+const ROWS = COLS;
 let grid = buildGrid();
 render(grid);
 
@@ -55,14 +55,13 @@ function nextGen(grid) {
             // Omito la celda en la que estoy parado
             continue;
           }
-          const x_cel = col + i;
-          const y_cel = row + j;
-
-          if (x_cel >= 0 && y_cel >= 0 && x_cel < COLS && y_cel < ROWS) {
-            const currentNeighbour = grid[col + i][row + j];
-            // Si la celda vecina = 1 se suma, sino suma 0
-            numNeighbours += currentNeighbour;
-          }
+          /* Toroide: las celdas de los bordes ven a las del
+          borde opuesto como sus vecinas (tipo pacman) */
+          const x_cel = (col + i + COLS) % COLS;
+          const y_cel = (row + j + ROWS) % ROWS;
+          const currentNeighbour = grid[x_cel][y_cel];
+          // Si la celda vecina = 1 se suma, sino suma 0
+          numNeighbours += currentNeighbour;
         }
       }
       // REGLAS DEL JUEGO:
