@@ -19,6 +19,7 @@ canvas.height = 600;
 const COLS = canvas.width / resolution;
 const ROWS = canvas.width / resolution;
 let grid = buildGrid();
+render(grid);
 
 function buildGrid() {
   return new Array(COLS)
