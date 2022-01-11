@@ -10,19 +10,21 @@ La cuarta regla se toma como caso default, solo programo las otras 3.
 //Variables globales
 let genCounter = 0; // cuenta las generaciones transcurridas
 let pause = false; // Frena el ciclo de iteraciones.
+const defaultLimit = 0.5;
+const defaultMargin = 0.40;
 
 // Canvas
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
-let resolution = 5;
+let resolution = 6;
 canvas.width = 600;
 canvas.height = 600;
 
 // Grid
 const COLS = canvas.width / resolution;
 const ROWS = COLS; // cuadrado
-let grid = buildGrid();
+let grid = buildLimitedGrid(defaultLimit, defaultMargin);
 render(grid);
 
 function buildGrid() {
@@ -31,6 +33,20 @@ function buildGrid() {
     .map(() =>
       new Array(ROWS).fill(null).map(() => Math.floor(Math.random() * 2))
     );
+}
+
+function buildLimitedGrid(limit, margin) {
+  return new Array(COLS).fill(null).map((col, i) =>
+    new Array(ROWS).fill(null).map((row, j) => {
+      const minborder = Math.floor(margin * COLS);
+      const maxborder = Math.floor((1 - margin) * COLS);
+      if (i < minborder || i > maxborder || j < minborder || j > maxborder) {
+        return 0;
+      } else {
+        return Math.random() <= limit ? 1 : 0;
+      }
+    })
+  );
 }
 
 function update() {
@@ -127,7 +143,7 @@ document.getElementById("btn-pause").addEventListener("click", (e) => {
 document.getElementById("btn-reset").addEventListener("click", (e) => {
   e.preventDefault();
   pause = true;
-  grid = buildGrid();
+  grid = buildLimitedGrid(defaultLimit, defaultMargin);
   render(grid);
   genCounter = -1;
   document.getElementById("btn-pause").setAttribute("style", "display: none");
